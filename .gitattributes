@@ -1,0 +1,2 @@
+# For the Linux-based Dev Containers project, LF line endings are enforced even on Windows
+* text=auto eol=lf

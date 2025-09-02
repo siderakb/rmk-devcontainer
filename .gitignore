@@ -1,0 +1,12 @@
+# Build output
+*.bin
+*.hex
+*.uf2
+*.elf
+*.map
+*.in
+*.out
+
+# OS
+.DS_Store
+Thumbs.db
