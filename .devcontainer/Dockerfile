@@ -1,5 +1,5 @@
 
-FROM mcr.microsoft.com/devcontainers/rust:1-1-bookworm
+FROM debian:bookworm-slim
 
 # Target architectures:
 # "thumbv6m-none-eabi"         Cortex-M0 and Cortex-M0+
@@ -10,6 +10,20 @@ FROM mcr.microsoft.com/devcontainers/rust:1-1-bookworm
 # "thumbv8m.main-none-eabi"    Cortex-M33 (no FPU)
 # "thumbv8m.main-none-eabihf"  Cortex-M33 (with FPU)
 ARG TARGET_ARCH=thumbv7em-none-eabihf
+
+# Install basic dependencies and create vscode user
+RUN apt update && apt install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    sudo \
+    && adduser --disabled-password --gecos '' vscode \
+    && echo 'vscode ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Install Rust
+USER vscode
+WORKDIR /home/vscode
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/home/vscode/.cargo/bin:${PATH}"
 
 USER root
 
@@ -29,5 +43,8 @@ USER vscode
 RUN rustup target add ${TARGET_ARCH}
 
 RUN cargo install rmkit flip-link cargo-make
+
+RUN echo 'alias rmkuf2="cargo make uf2 --release"' >> ~/.bashrc \
+ && echo 'alias rmkbuild="cargo build --release"' >> ~/.bashrc
 
 WORKDIR /workspace
