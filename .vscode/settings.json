@@ -5,5 +5,8 @@
   "files.eol": "\n", // For the Linux-based Dev Containers project, LF line endings are enforced even on Windows
   "files.trimFinalNewlines": true,
   "files.insertFinalNewline": true,
-  "files.trimTrailingWhitespace": true
+  "files.trimTrailingWhitespace": true,
+  "files.associations": {
+    "*.x": "linkerscript"
+  }
 }
