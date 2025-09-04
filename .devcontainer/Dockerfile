@@ -11,19 +11,19 @@ FROM debian:bookworm-slim
 # "thumbv8m.main-none-eabihf"  Cortex-M33 (with FPU)
 ARG TARGET_ARCH=thumbv7em-none-eabihf
 
-# Install basic dependencies and create vscode user
+# Install basic dependencies and create developer user
 RUN apt update && apt install -y --no-install-recommends \
     curl \
     ca-certificates \
     sudo \
-    && adduser --disabled-password --gecos '' vscode \
-    && echo 'vscode ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    && adduser --disabled-password --gecos '' developer \
+    && echo 'developer ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Install Rust
-USER vscode
-WORKDIR /home/vscode
+USER developer
+WORKDIR /home/developer
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/home/vscode/.cargo/bin:${PATH}"
+ENV PATH="/home/developer/.cargo/bin:${PATH}"
 
 USER root
 
@@ -38,7 +38,7 @@ ENV LIBCLANG_PATH=/usr/lib/llvm-14/lib
 
 RUN echo 'export LIBCLANG_PATH=/usr/lib/llvm-14/lib' >> ~/.bashrc
 
-USER vscode
+USER developer
 
 RUN rustup target add ${TARGET_ARCH}
 
