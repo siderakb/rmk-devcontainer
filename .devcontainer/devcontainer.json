@@ -3,7 +3,17 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "TARGET_ARCH": "thumbv7em-none-eabihf"
+      // Target architecture for your MCU.
+      // https://doc.rust-lang.org/nightly/rustc/platform-support.html
+      // "thumbv6m-none-eabi"         Cortex-M0 and Cortex-M0+
+      // "thumbv7m-none-eabi"         Cortex-M3
+      // "thumbv7em-none-eabi"        Cortex-M4 and Cortex-M7 (no FPU)
+      // "thumbv7em-none-eabihf"      Cortex-M4F and Cortex-M7F (with FPU)
+      // "thumbv8m.base-none-eabi"    Cortex-M23
+      // "thumbv8m.main-none-eabi"    Cortex-M33 (no FPU)
+      // "thumbv8m.main-none-eabihf"  Cortex-M33 (with FPU)
+      "TARGET_ARCH": "thumbv7em-none-eabihf",
+      "LLVM_VERSION": "14"
     }
   },
   "workspaceFolder": "/workspace",
@@ -12,7 +22,7 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "rust-analyzer.cargo.target": "thumbv7em-none-eabihf",
+        // "rust-analyzer.cargo.target": "thumbv7em-none-eabihf",
         "[rust]": {
           "editor.defaultFormatter": "rust-lang.rust-analyzer"
         },
