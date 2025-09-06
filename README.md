@@ -1,6 +1,6 @@
 # RMK Docker & DevContainers
 
-[RMK](https://github.com/HaoboGu/rmk) is a Rust-based keyboard firmware Docker image and development container setup.
+[RMK](https://github.com/HaoboGu/rmk) Rust-based keyboard firmware Docker image and development container setup.
 
 ## Usage
 
